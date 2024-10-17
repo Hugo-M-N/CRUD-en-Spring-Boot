@@ -1,5 +1,7 @@
 package com.example.Biblioteca.serviceImpl;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,18 @@ public class TemaServiceImpl implements TemaService {
 		return result;
 	}
 	
+	public ArrayList<TemaModel> getAllTemas(){
+		ArrayList<TemaModel> result = new ArrayList<>();
+		
+		try {
+			result = (ArrayList<TemaModel>) temaRepo.findAll();
+		} catch (Exception e) {
+			System.out.println("getAllTemas: "+ e.getMessage());
+		}
+		
+		return result;
+	}
+	
 	public TemaModel getTemaById(Integer id) {
 		TemaModel result = new TemaModel();
 		
@@ -33,6 +47,23 @@ public class TemaServiceImpl implements TemaService {
 			result = temaRepo.findById(id).get();
 		} catch (Exception e) {
 			System.out.println("getTemaById: "+ e.getMessage());
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<TemaModel> getTemasByFilter(TemaModel filter){
+		ArrayList<TemaModel> result = new ArrayList<>();
+		
+		try {
+			ArrayList<TemaModel> temas = (ArrayList<TemaModel>) temaRepo.findAll();
+			for(TemaModel tema : temas) {
+				if((tema.getIdTema()==filter.getIdTema()) || (tema.getDescripcion().equals(filter.getDescripcion()))) {
+					result.add(tema);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("getTemasByFilter: "+ e.getMessage());
 		}
 		
 		return result;

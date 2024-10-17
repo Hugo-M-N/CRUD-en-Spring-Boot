@@ -1,5 +1,7 @@
 package com.example.Biblioteca.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,11 +31,29 @@ public class TemaController {
 		return result;
 	}
 	
+	@GetMapping(value="/getAll")
+	public ArrayList<TemaModel> getAllTemas(){
+		ArrayList<TemaModel> result = new ArrayList<>();
+		
+		result = temaService.getAllTemas();
+		
+		return result;
+	}
+	
 	@GetMapping(value="/get/{id}")
 	public TemaModel getTemaById(@PathVariable(value="id") Integer id) {
 		TemaModel result = new TemaModel();
 		
 		result = temaService.getTemaById(id);
+		
+		return result;
+	}
+	
+	@GetMapping(value="/getByFilter")
+	public ArrayList<TemaModel> getTemasByFilter(TemaModel filter){
+		ArrayList<TemaModel> result = new ArrayList<>();
+		
+		result = temaService.getTemasByFilter(filter);
 		
 		return result;
 	}
