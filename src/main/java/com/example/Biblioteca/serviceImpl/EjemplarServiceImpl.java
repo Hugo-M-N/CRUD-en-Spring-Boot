@@ -1,5 +1,7 @@
 package com.example.Biblioteca.serviceImpl;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,18 @@ public class EjemplarServiceImpl implements EjemplarService {
 		return result;
 	}
 	
+	public ArrayList<EjemplarModel> getAllEjemplares(){
+		ArrayList<EjemplarModel> result = new ArrayList<>();
+		
+		try {
+			result = (ArrayList<EjemplarModel>) ejemplarRepo.findAll();
+		} catch (Exception e) {
+			System.out.println("getAllEjemplares: "+ e.getMessage());
+		}
+		
+		return result;
+	}
+	
 	public EjemplarModel getEjemplarById(Integer id) {
 		EjemplarModel result = new EjemplarModel();
 		
@@ -33,6 +47,23 @@ public class EjemplarServiceImpl implements EjemplarService {
 			result = ejemplarRepo.findById(id).get();
 		} catch (Exception e) {
 			System.out.println("getEjemplaarById: "+ e.getMessage());
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<EjemplarModel> getEjemplaresByFilter(EjemplarModel filter){
+		ArrayList<EjemplarModel> result = new ArrayList<>();
+		
+		try {
+			ArrayList<EjemplarModel> ejemplares = (ArrayList<EjemplarModel>) ejemplarRepo.findAll();
+			for(EjemplarModel ejemplar : ejemplares) {
+				if((ejemplar.getIdEjemplar()==filter.getIdEjemplar()) || (ejemplar.getIdLibro()==filter.getIdLibro())) {
+					result.add(ejemplar);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("GetEjemplaresByFilter: "+ e.getMessage());
 		}
 		
 		return result;

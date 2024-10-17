@@ -1,5 +1,7 @@
 package com.example.Biblioteca.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,11 +31,29 @@ public class EjemplarController {
 		return result;
 	}
 	
+	@GetMapping(value="/getAll")
+	public ArrayList<EjemplarModel> getAllEjemplares(){
+		ArrayList<EjemplarModel> result = new ArrayList<>();
+		
+		result = ejemplarService.getAllEjemplares();
+		
+		return result;
+	}
+	
 	@GetMapping(value="/get/{id}")
 	public EjemplarModel getEjemplarById(@PathVariable(value="id") Integer id) {
 		EjemplarModel result = new EjemplarModel();
 		
 		result = ejemplarService.getEjemplarById(id);
+		
+		return result;
+	}
+	
+	@GetMapping(value="/getByFilter")
+	public ArrayList<EjemplarModel> getEjemplaresByFilter(@RequestBody EjemplarModel filter){
+		ArrayList<EjemplarModel> result = new ArrayList<>();
+		
+		result = ejemplarService.getEjemplaresByFilter(filter);
 		
 		return result;
 	}
