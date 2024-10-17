@@ -1,6 +1,5 @@
 package com.example.Biblioteca.service;
 
-import com.example.Biblioteca.model.LibroModel;
 import com.example.Biblioteca.model.TemaModel;
 
 public interface TemaService {
