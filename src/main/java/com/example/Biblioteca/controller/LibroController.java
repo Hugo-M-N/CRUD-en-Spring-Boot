@@ -1,5 +1,7 @@
 package com.example.Biblioteca.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,11 +31,29 @@ public class LibroController {
 		return result;
 	}
 	
+	@GetMapping(value="/getAll")
+	public ArrayList<LibroModel> getAllLibros(){
+		ArrayList<LibroModel> result = new ArrayList<>();
+		
+		result = libroService.getAllLibros();
+		
+		return result;
+	}
+	
 	@GetMapping(value = "/get/{id}")
 	public LibroModel getLibro(@PathVariable(value = "id") Integer id){
 		LibroModel result = new LibroModel();
 		
 		result = libroService.getLibroById(id);
+		
+		return result;
+	}
+	
+	@GetMapping(value="/GetByFilter")
+	public ArrayList<LibroModel> getLibrosByFilter(@RequestBody LibroModel filter){
+		ArrayList<LibroModel> result = new ArrayList<>();
+		
+		result = libroService.getLibrosByFilter(filter);
 		
 		return result;
 	}

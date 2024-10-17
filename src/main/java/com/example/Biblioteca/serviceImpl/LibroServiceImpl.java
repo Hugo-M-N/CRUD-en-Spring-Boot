@@ -1,5 +1,7 @@
 package com.example.Biblioteca.serviceImpl;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,18 @@ public class LibroServiceImpl implements LibroService{
 		
 	}
 	
+	public ArrayList<LibroModel> getAllLibros(){
+		ArrayList<LibroModel> result = new ArrayList<>();
+		
+		try {
+			result = (ArrayList<LibroModel>) libroRepo.findAll();
+		} catch (Exception e) {
+			System.out.println("getAllLibros: "+ e.getMessage());
+		}
+		
+		return result;
+	}
+	
 	public LibroModel getLibroById(Integer id) {
 		LibroModel result = new LibroModel();
 		
@@ -37,6 +51,25 @@ public class LibroServiceImpl implements LibroService{
 			System.out.println("guardaLibro: "+ e.getMessage());
 			
 		}
+		return result;
+	}
+	
+	public ArrayList<LibroModel> getLibrosByFilter(LibroModel filter){
+		ArrayList<LibroModel> result = new ArrayList<>();
+		
+		try {
+			ArrayList<LibroModel> libros = (ArrayList<LibroModel>) libroRepo.findAll();
+			for(LibroModel libro : libros) {
+				if((libro.getIdLibro()==filter.getIdLibro()) || (libro.getTitulo().equals(filter.getTitulo())) ||
+					(libro.getAnio()==filter.getAnio()) || (libro.getIdIdioma()==filter.getIdIdioma())
+						) {
+					result.add(libro);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("getLibrosByFilter:: "+ e.getMessage());
+		}
+		
 		return result;
 	}
 	
