@@ -1,5 +1,7 @@
 package com.example.Biblioteca.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,11 +33,29 @@ public class IdiomaController {
 		return result;
 	}
 	
+	@GetMapping(value="/getAll")
+	public ArrayList<IdiomaModel> getAllIdiomas(){
+		ArrayList<IdiomaModel> result = new ArrayList<>();
+		
+		result = idiomaService.getAllIdiomas();
+		
+		return result;
+	}
+	
 	@GetMapping("/get/{id}")
 	public IdiomaModel getIdiomaById(@PathVariable(value = "id") Integer id) {
 		IdiomaModel result = new IdiomaModel();
 		
 		result = idiomaService.getIdiomaById(id);
+		
+		return result;
+	}
+	
+	@GetMapping(value="/getByFilter")
+	public ArrayList<IdiomaModel> getIdiomasByFilter(@RequestBody IdiomaModel filter){
+		ArrayList<IdiomaModel> result = new ArrayList<>();
+		
+		result = idiomaService.getIdiomasByFilter(filter);
 		
 		return result;
 	}

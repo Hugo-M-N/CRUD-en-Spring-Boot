@@ -1,5 +1,7 @@
 package com.example.Biblioteca.serviceImpl;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,19 @@ public class IdiomaServiceImpl implements IdiomaService{
 		return result;
 	}
 	
+	public ArrayList<IdiomaModel> getAllIdiomas(){
+		ArrayList<IdiomaModel> result = new ArrayList<>();
+		
+		try {
+			result = (ArrayList<IdiomaModel>) idiomaRepo.findAll();
+			
+		} catch (Exception e) {
+			System.out.println("getAllIdiomas: "+ e.getMessage());
+		}
+		
+		return result;
+	}
+	
 	public IdiomaModel getIdiomaById(Integer id) {
 		IdiomaModel result = new IdiomaModel();
 		
@@ -34,6 +49,23 @@ public class IdiomaServiceImpl implements IdiomaService{
 			System.out.println("getIdiomaById: "+ e.getMessage());
 			
 		}
+		return result;
+	}
+	
+	public ArrayList<IdiomaModel> getIdiomasByFilter(IdiomaModel filter){
+		ArrayList<IdiomaModel> result = new ArrayList<>();
+		
+		try {
+			ArrayList<IdiomaModel> idiomas = (ArrayList<IdiomaModel>) idiomaRepo.findAll();
+			for(IdiomaModel idioma : idiomas) {
+				if((idioma.getIdIdioma()==filter.getIdIdioma()) || (idioma.getDescripcion().equals(filter.getDescripcion()))) {
+					result.add(idioma);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("getIdiomasByFilter: "+ e.getMessage());
+		}
+		
 		return result;
 	}
 	
