@@ -1,5 +1,7 @@
 package com.example.Biblioteca.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,11 +31,29 @@ public class PrestaController {
 		return result;
 	}
 	
+	@GetMapping(value="/getAll")
+	public ArrayList<PrestaModel> getAllPrestamos(){
+		ArrayList<PrestaModel> result = new ArrayList<>();
+		
+		result = prestaService.getAllPrestamos();
+		
+		return result;
+	}
+	
 	@GetMapping(value="/get/{id}")
 	public PrestaModel getPrestaById(@PathVariable(value="id")Integer id) {
 		PrestaModel result = new PrestaModel();
 		
 		result = prestaService.getPrestaById(id);
+		
+		return result;
+	}
+	
+	@GetMapping(value="/getByFilter")
+	public ArrayList<PrestaModel> getPrestamosByFilter(@RequestBody PrestaModel filter){
+		ArrayList<PrestaModel> result = new ArrayList<>();
+		
+		result = prestaService.getPrestamosByFilter(filter);
 		
 		return result;
 	}

@@ -1,5 +1,7 @@
 package com.example.Biblioteca.serviceImpl;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,18 @@ public class PrestaServiceImpl implements PrestaService {
 		return result;
 	}
 	
+	public ArrayList<PrestaModel> getAllPrestamos(){
+		ArrayList<PrestaModel> result = new ArrayList<>();
+		
+		try {
+			result = (ArrayList<PrestaModel>) prestaRepo.findAll();
+		} catch (Exception e) {
+			System.out.println("getAllPrestamos: "+ e.getMessage());
+		}
+		
+		return result;
+	}
+	
 	public PrestaModel getPrestaById(Integer id) {
 		PrestaModel result = new PrestaModel();
 		
@@ -33,6 +47,25 @@ public class PrestaServiceImpl implements PrestaService {
 			result = prestaRepo.findById(id).get();
 		} catch (Exception e) {
 			System.out.println("getPrestaById: "+ e.getMessage());
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<PrestaModel> getPrestamosByFilter(PrestaModel filter){
+		ArrayList<PrestaModel> result = new ArrayList<>();
+		
+		try {
+			ArrayList<PrestaModel> prestamos = (ArrayList<PrestaModel>) prestaRepo.findAll();
+			for(PrestaModel prestamo : prestamos) {
+				if((prestamo.getIdPresta()==filter.getIdPresta()) || (prestamo.getIdLibro()==filter.getIdLibro()) || (prestamo.getIdEjemplar()==filter.getIdEjemplar()) ||
+					(prestamo.getIdSocio()==filter.getIdSocio()) || (prestamo.getFechaPrest().equals(filter.getFechaPrest())) || (prestamo.getFechaDev().equals(filter.getFechaDev()))
+						){
+					result.add(prestamo);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("getPrestamosByFilter: "+ e.getMessage());
 		}
 		
 		return result;
