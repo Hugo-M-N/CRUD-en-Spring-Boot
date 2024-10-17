@@ -1,5 +1,7 @@
 package com.example.Biblioteca.serviceImpl;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,18 @@ public class SocioServiceImpl implements SocioService{
 		return result;
 	}
 	
+	public ArrayList<SocioModel> getAllSocios(){
+		ArrayList<SocioModel> result = new ArrayList<>();
+		
+		try {
+			result = (ArrayList<SocioModel>) SocioRepo.findAll();
+		} catch (Exception e) {
+			System.out.println("getAllSocios: "+ e.getMessage());
+		}
+		
+		return result;
+	}
+	
 	public SocioModel getSocioById(Integer id) {
 		SocioModel result = new SocioModel();
 		
@@ -33,6 +47,25 @@ public class SocioServiceImpl implements SocioService{
 			result = SocioRepo.findById(id).get();
 		} catch (Exception e) {
 			System.out.println("getSocioById: "+ e.getMessage());
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<SocioModel> getSociosByFilter(SocioModel filter){
+		ArrayList<SocioModel> result = new ArrayList<>();
+		
+		try {
+			ArrayList<SocioModel> socios = (ArrayList<SocioModel>) SocioRepo.findAll();
+			for(SocioModel socio : socios) {
+				if((socio.getIdSocio()==filter.getIdSocio()) || (socio.getNombre().equals(filter.getNombre())) ||
+					(socio.getDomicilio().equals(filter.getDomicilio())) || (socio.getTelefono().equals(filter.getTelefono()))
+						) {
+					result.add(socio);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("getSociosByFilter: "+ e.getMessage());
 		}
 		
 		return result;

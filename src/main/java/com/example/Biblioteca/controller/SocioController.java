@@ -1,5 +1,7 @@
 package com.example.Biblioteca.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,11 +31,29 @@ public class SocioController {
 		return result;
 	}
 	
+	@GetMapping(value="/getAll")
+	public ArrayList<SocioModel> getAllSocios(){
+		ArrayList<SocioModel> result = new ArrayList<>();
+		
+		result = socioService.getAllSocios();
+		
+		return result;
+	}
+	
 	@GetMapping(value="/get/{id}")
 	public SocioModel getSocioById(@PathVariable(value="id") Integer id) {
 		SocioModel result = new SocioModel();
 		
 		result = socioService.getSocioById(id);
+		
+		return result;
+	}
+	
+	@GetMapping(value="/getByFilter")
+	public ArrayList<SocioModel> getSociosByFilter(@RequestBody SocioModel filter){
+		ArrayList<SocioModel> result = new ArrayList<>();
+		
+		result = socioService.getSociosByFilter(filter);
 		
 		return result;
 	}
