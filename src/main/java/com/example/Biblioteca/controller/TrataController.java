@@ -1,5 +1,7 @@
 package com.example.Biblioteca.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,7 @@ import com.example.Biblioteca.service.TrataService;
 
 @RestController
 @RequestMapping(value="/trata")
-public class TrataCotroller {
+public class TrataController {
 
 	@Autowired
 	TrataService trataService;
@@ -29,11 +31,29 @@ public class TrataCotroller {
 		return result;
 	}
 	
+	@GetMapping(value="/getAll")
+	public ArrayList<TrataModel> getAllTramas(){
+		ArrayList<TrataModel> result = new ArrayList<>();
+		
+		result = trataService.getAllTramas();
+		
+		return result;
+	}
+	
 	@GetMapping(value="/get/{id}")
 	public TrataModel getTrataById(@PathVariable(value="id") Integer id) {
 		TrataModel result = new TrataModel();
 		
 		result = trataService.getTrataById(id);
+		
+		return result;
+	}
+	
+	@GetMapping(value="/getByFilter")
+	public ArrayList<TrataModel> getTramasByFilter(@RequestBody TrataModel filter){
+		ArrayList<TrataModel> result = new ArrayList<>();
+		
+		result = trataService.getTramasByFilter(filter);
 		
 		return result;
 	}

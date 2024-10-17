@@ -50,7 +50,7 @@ public class TemaController {
 	}
 	
 	@GetMapping(value="/getByFilter")
-	public ArrayList<TemaModel> getTemasByFilter(TemaModel filter){
+	public ArrayList<TemaModel> getTemasByFilter(@RequestBody TemaModel filter){
 		ArrayList<TemaModel> result = new ArrayList<>();
 		
 		result = temaService.getTemasByFilter(filter);
