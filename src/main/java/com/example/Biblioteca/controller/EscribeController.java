@@ -1,5 +1,7 @@
 package com.example.Biblioteca.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,11 +31,29 @@ public class EscribeController {
 		return result;
 	}
 	
+	@GetMapping(value="/getAll")
+	public ArrayList<EscribeModel> getAllEscritos(){
+		ArrayList<EscribeModel> result = new ArrayList<>();
+		
+		result = escribeService.getAllEscritos();
+		
+		return result;
+	}
+	
 	@GetMapping(value="/get/{id}")
 	public EscribeModel getEscribeById(@PathVariable(value="id") Integer id) {
 		EscribeModel result = new EscribeModel();
 		
 		result = escribeService.getEscribeById(id);
+		
+		return result;
+	}
+	
+	@GetMapping(value="/getByFilter")
+	public ArrayList<EscribeModel> getEscritosByFilter(@RequestBody EscribeModel filter){
+		ArrayList<EscribeModel> result = new ArrayList<>();
+		
+		result = escribeService.getEscritosByFilter(filter);
 		
 		return result;
 	}
