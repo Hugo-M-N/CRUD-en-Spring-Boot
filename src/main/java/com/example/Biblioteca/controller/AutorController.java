@@ -1,5 +1,7 @@
 package com.example.Biblioteca.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,11 +31,29 @@ public class AutorController {
 		return result;
 	}
 	
+	@GetMapping(value="/getAll")
+	public ArrayList<AutorModel> getAllAutores(){
+		ArrayList<AutorModel> result = new ArrayList<>();
+		
+		result = autorService.getAllAutores();
+		
+		return result;
+	}
+	
 	@GetMapping(value="/get/{id}")
 	public AutorModel getAutorById(@PathVariable(value="id") Integer id) {
 		AutorModel result = new AutorModel();
 		
 		result = autorService.getAutorById(id);
+		
+		return result;
+	}
+	
+	@GetMapping(value="/getByFilter")
+	public ArrayList<AutorModel> getAutoresByFilter(@RequestBody AutorModel filter){
+		ArrayList<AutorModel> result = new ArrayList<>();
+		
+		result = autorService.getAutoresByFilter(filter);
 		
 		return result;
 	}

@@ -1,5 +1,7 @@
 package com.example.Biblioteca.serviceImpl;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,18 @@ public class AutorServiceImpl implements AutorService {
 		return result;
 	}
 	
+	public ArrayList<AutorModel> getAllAutores(){
+		ArrayList<AutorModel> result = new ArrayList<>();
+		
+		try {
+			result = (ArrayList<AutorModel>) autorRepo.findAll();
+		} catch (Exception e) {
+			System.out.println("getAllAutores: "+ e.getMessage());
+		}
+		
+		return result;
+	}
+	
 	public AutorModel getAutorById(Integer id) {
 		AutorModel result = new AutorModel();
 		
@@ -33,6 +47,23 @@ public class AutorServiceImpl implements AutorService {
 			result = autorRepo.findById(id).get();
 		} catch (Exception e) {
 			System.out.println("getAutorById: "+ e.getMessage());
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<AutorModel> getAutoresByFilter(AutorModel filter){
+		ArrayList<AutorModel> result = new ArrayList<>();
+		
+		try {
+			ArrayList<AutorModel> autores = (ArrayList<AutorModel>) autorRepo.findAll();
+			for(AutorModel autor : autores) {
+				if((autor.getIdAutor()==filter.getIdAutor()) || (autor.getNombre().equals(filter.getNombre()))) {
+					result.add(autor);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("getAutoresByFilter");
 		}
 		
 		return result;
