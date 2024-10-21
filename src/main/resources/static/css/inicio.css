@@ -1,0 +1,57 @@
+:root {
+    --fuente-principal: "system-ui";
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+body {
+
+    background-color: green;
+    height: 1vh;
+    color: beige;
+}
+
+.titulo {
+    margin: 30rem 0 0 0;
+    text-align: center;
+    font-size: 10rem;
+    text-transform: uppercase;
+    font-family: var(--fuente-principal);
+}
+
+.subtitulo {
+    margin: 0;
+    text-align: center;
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-family: var(--fuente-principal);
+}
+
+.inicio {
+    width: 50rem;
+    margin: 5rem auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;   
+}
+
+.inicioBotton {
+    padding: 1.5rem;
+    margin: 2rem 0;
+    font-family: var(--fuente-principal);
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 4rem;
+    background-color: darkgreen;
+    border-radius: 2rem;
+    color: beige;
+}
+
+.inicioBotton:hover{
+    background-color: beige;
+    color: darkgreen;
+}
